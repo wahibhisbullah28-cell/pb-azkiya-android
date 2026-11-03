@@ -21,6 +21,16 @@ jobs:
       - name: Extract Android Project
         run: unzip -o PB_AZKIYA_Android_Project.zip
 
+      - name: Extract Logo Assets
+        run: |
+          mkdir -p /tmp/pb-azkiya-logo
+          unzip -o PB_AZKIYA_Logo_Icon_Assets.zip -d /tmp/pb-azkiya-logo
+          RES="PB_AZKIYA_Android/app/src/main/res"
+          mkdir -p "$RES"
+          cp -R /tmp/pb-azkiya-logo/mipmap-* "$RES/"
+          mkdir -p "$RES/drawable"
+          cp -R /tmp/pb-azkiya-logo/drawable/. "$RES/drawable/"
+
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
