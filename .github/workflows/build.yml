@@ -8,12 +8,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Extract project
-        run: unzip PB_AZKIYA_Android_Project.zip
+        run: unzip -o PB_AZKIYA_Android_Project.zip
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -23,6 +24,11 @@ jobs:
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          packages: |
+            platform-tools
+            platforms;android-35
+            build-tools;35.0.0
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
