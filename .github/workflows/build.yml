@@ -1,19 +1,24 @@
+
 name: Build PB AZKIYA APK
 
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches:
+      - main
+
+permissions:
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Extract project
+      - name: Extract Android Project
         run: unzip -o PB_AZKIYA_Android_Project.zip
 
       - name: Set up Java
@@ -23,14 +28,14 @@ jobs:
           java-version: '17'
 
       - name: Set up Android SDK
-  uses: android-actions/setup-android@v4
-  with:
-    packages: 'platform-tools'
+        uses: android-actions/setup-android@v4
+        with:
+          packages: 'platform-tools'
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Build APK
+      - name: Build PB AZKIYA APK
         working-directory: PB_AZKIYA_Android
         run: gradle assembleDebug
 
